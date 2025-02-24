@@ -1,3 +1,5 @@
+from bot import Bot, RPS
+
 
 class RPSGame:
     def __init__(self, bot=None):
