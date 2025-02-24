@@ -2,6 +2,17 @@ from enum import Enum
 from random import randint
 
 
+
+class Bot:
+    def __init__(self, name):
+        self.name = "BOT"
+        self.score = 0
+        self.choice = None
+
+    def next_move(self):
+        return RPS(randint(1, 3))
+
+
 class RPS(Enum):
     ROCK = 1
     PAPER = 2
@@ -12,13 +23,15 @@ class RPS(Enum):
 
 
 class RPSGame:
-    def __init__(self):
+    def __init__(self, bot=None):
         self.player_score = 0
         self.computer_score = 0
         self.tie_score = 0
+        self.bot: Bot = Bot("BOT") if not bot else bot
         self.player_choice = None
         self.computer_choice = None
         print("Game is starting...")
+
     def player_input(self):
         while True:
             try:
@@ -32,7 +45,7 @@ class RPSGame:
                 print("Invalid input. Please enter a number.")
 
     def computer_input(self):
-        self.computer_choice = RPS(randint(1, 3))
+        self.computer_choice = self.bot.next_move()
 
     def check_winner(self):
         print(f"You chose: {self.player_choice}, Computer chose: {self.computer_choice}")
